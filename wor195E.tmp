@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://de8peru13n3wr"]
+
+[ext_resource type="PackedScene" uid="uid://dpgyuqaib81ho" path="res://Assets/Floor.tscn" id="1_b18q1"]
+[ext_resource type="PackedScene" uid="uid://ciy2qk3xti6ee" path="res://Assets/Ball.tscn" id="2_06sq4"]
+[ext_resource type="PackedScene" uid="uid://c73d4fbburleq" path="res://Assets/OrbitCamera.tscn" id="2_y24r6"]
+[ext_resource type="PackedScene" uid="uid://bhuy1msickgpu" path="res://Assets/Ground.tscn" id="3_r0pp6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sbh6s"]
+sky_top_color = Color(0.1584, 0.4392, 0.72, 1)
+sky_horizon_color = Color(0.553806, 0.62964, 0.760156, 1)
+sky_curve = 0.160766
+
+[sub_resource type="Sky" id="Sky_kqb3x"]
+sky_material = SubResource("ProceduralSkyMaterial_sbh6s")
+
+[sub_resource type="Environment" id="Environment_x0hnk"]
+background_mode = 2
+sky = SubResource("Sky_kqb3x")
+
+[node name="World" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.0280777, 0.974303, 0.223485, -0.12027, -0.225242, 0.966851, 0.992344, 0.000268372, 0.123504, 0, 16, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_x0hnk")
+
+[node name="Ball" parent="." instance=ExtResource("2_06sq4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.05712, 43.6639, -0.624966)
+mass = 10000.0
+
+[node name="Floor" parent="." instance=ExtResource("1_b18q1")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 6.88942, 31.9424, 0)
+
+[node name="Ground" parent="." instance=ExtResource("3_r0pp6")]
+transform = Transform3D(10.0122, 0, 0, 0, 10.0122, 0, 0, 0, 10.0122, 0, 0, 0)
+
+[node name="CameraGimbal" parent="." instance=ExtResource("2_y24r6")]
+target = NodePath("../Ground")
+CamDistance = 50.0
